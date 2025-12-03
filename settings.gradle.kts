@@ -20,3 +20,4 @@ rootProject.name = "fks-clients"
 include(":shared")
 include(":android")
 include(":desktop")
+// iOS is built via Xcode using the shared framework
