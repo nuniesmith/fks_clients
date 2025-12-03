@@ -6,7 +6,8 @@ import xyz.fkstrading.clients.data.models.*
 /**
  * Repository for market data service
  */
-object DataRepository {
+class DataRepository {
+    private val apiClient = FksApiClient.instance
     
     /**
      * Get current price for a symbol
@@ -25,7 +26,7 @@ object DataRepository {
             put("use_cache", useCache.toString())
         }
         
-        return FksApiClient.get("/api/v1/data/price", FksApiClient.dataUrl, params)
+        return apiClient.get("/api/v1/data/price", apiClient.dataUrl, params)
     }
     
     /**
@@ -48,7 +49,7 @@ object DataRepository {
             put("use_cache", useCache.toString())
         }
         
-        return FksApiClient.get("/api/v1/data/ohlcv", FksApiClient.dataUrl, params)
+        return apiClient.get("/api/v1/data/ohlcv", apiClient.dataUrl, params)
     }
     
     /**
@@ -76,6 +77,6 @@ object DataRepository {
      * Check data service health
      */
     suspend fun getHealth(): HealthResponse {
-        return FksApiClient.get("/health", FksApiClient.dataUrl)
+        return apiClient.get("/health", apiClient.dataUrl)
     }
 }

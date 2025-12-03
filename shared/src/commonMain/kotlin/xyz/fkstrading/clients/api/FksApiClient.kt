@@ -14,23 +14,21 @@ import kotlinx.serialization.json.Json
 
 /**
  * FKS API Client for all backend services
- * Supports HTTP requests and WebSocket connections
- * 
- * Services:
- * - API (8001): Core API gateway
- * - Data (8003): Market data service
- * - Auth (8009): Authentication service  
- * - Portfolio (8012): Portfolio management
  */
-object FksApiClient {
+class FksApiClient {
     // Base URLs - configurable via environment
-    private var apiBaseUrl = "http://localhost:8001"
-    private var dataBaseUrl = "http://localhost:8003"
-    private var authBaseUrl = "http://localhost:8009"
-    private var portfolioBaseUrl = "http://localhost:8012"
+    var apiBaseUrl = "http://localhost:8001"
+        private set
+    var dataBaseUrl = "http://localhost:8003"
+        private set
+    var authBaseUrl = "http://localhost:8009"
+        private set
+    var portfolioBaseUrl = "http://localhost:8012"
+        private set
     
     // JWT token storage
-    private var authToken: String? = null
+    var authToken: String? = null
+        private set
     
     /**
      * Configure base URLs from environment or explicit values
@@ -70,12 +68,6 @@ object FksApiClient {
         
         install(Logging) {
             level = LogLevel.INFO
-        }
-        
-        defaultRequest {
-            authToken?.let { token ->
-                header(HttpHeaders.Authorization, "Bearer $token")
-            }
         }
     }
     
@@ -219,5 +211,9 @@ object FksApiClient {
                 }
             }
         }
+    }
+    
+    companion object {
+        val instance by lazy { FksApiClient() }
     }
 }

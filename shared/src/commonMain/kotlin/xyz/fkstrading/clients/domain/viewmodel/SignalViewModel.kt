@@ -15,6 +15,8 @@ import xyz.fkstrading.clients.data.repository.SignalRepository
 class SignalViewModel(
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) {
+    private val signalRepository = SignalRepository()
+    
     private val _signals = MutableStateFlow<List<SignalResponse>>(emptyList())
     val signals: StateFlow<List<SignalResponse>> = _signals.asStateFlow()
     
@@ -44,8 +46,8 @@ class SignalViewModel(
             _selectedCategory.value = category
             
             try {
-                _signals.value = SignalRepository.generateSignals(category, symbols, aiEnhanced)
-                _signalSummary.value = SignalRepository.getSignalSummary()
+                _signals.value = signalRepository.generateSignals(category, symbols, aiEnhanced)
+                _signalSummary.value = signalRepository.getSignalSummary()
             } catch (e: Exception) {
                 _error.value = "Failed to load signals: ${e.message}"
             } finally {
@@ -64,8 +66,8 @@ class SignalViewModel(
             _selectedCategory.value = "bitcoin"
             
             try {
-                _signals.value = SignalRepository.getBitcoinSignals(aiEnhanced = true)
-                _signalSummary.value = SignalRepository.getSignalSummary()
+                _signals.value = signalRepository.getBitcoinSignals(aiEnhanced = true)
+                _signalSummary.value = signalRepository.getSignalSummary()
             } catch (e: Exception) {
                 _error.value = "Failed to load Bitcoin signals: ${e.message}"
             } finally {

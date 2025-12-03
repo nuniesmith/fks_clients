@@ -7,7 +7,8 @@ import kotlinx.coroutines.flow.Flow
 /**
  * Repository for trading signals
  */
-object SignalRepository {
+class SignalRepository {
+    private val apiClient = FksApiClient.instance
     
     /**
      * Generate trading signals
@@ -26,7 +27,7 @@ object SignalRepository {
             put("ai_enhanced", aiEnhanced.toString())
         }
         
-        return FksApiClient.get("/api/signals/generate", FksApiClient.portfolioUrl, params)
+        return apiClient.get("/api/signals/generate", apiClient.portfolioUrl, params)
     }
     
     /**
@@ -40,14 +41,14 @@ object SignalRepository {
      * Get signal summary
      */
     suspend fun getSignalSummary(): SignalSummaryResponse {
-        return FksApiClient.get("/api/signals/summary", FksApiClient.portfolioUrl)
+        return apiClient.get("/api/signals/summary", apiClient.portfolioUrl)
     }
     
     /**
      * Connect to WebSocket for real-time signal updates
      */
     suspend fun connectSignalWebSocket(): Flow<String> {
-        return FksApiClient.connectWebSocket("/api/signals/stream", FksApiClient.portfolioUrl)
+        return apiClient.connectWebSocket("/api/signals/stream", apiClient.portfolioUrl)
     }
     
     /**

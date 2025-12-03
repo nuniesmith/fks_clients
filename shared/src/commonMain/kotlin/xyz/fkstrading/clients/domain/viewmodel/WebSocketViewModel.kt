@@ -19,6 +19,7 @@ import xyz.fkstrading.clients.data.repository.SignalRepository
 class WebSocketViewModel(
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) {
+    private val signalRepository = SignalRepository()
     private var webSocketJob: Job? = null
     
     private val _isConnected = MutableStateFlow(false)
@@ -51,12 +52,12 @@ class WebSocketViewModel(
                 _isConnected.value = true
                 _error.value = null
                 
-                SignalRepository.connectSignalWebSocket()
-                    .catch { e ->
+                signalRepository.connectSignalWebSocket()
+                    .catch { e: Throwable ->
                         _error.value = "WebSocket error: ${e.message}"
                         _isConnected.value = false
                     }
-                    .collect { message ->
+                    .collect { message: String ->
                         try {
                             val signal = json.decodeFromString<SignalResponse>(message)
                             _latestSignal.value = signal

@@ -15,6 +15,8 @@ import xyz.fkstrading.clients.data.repository.AuthRepository
 class AuthViewModel(
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) {
+    private val authRepository = AuthRepository()
+    
     private val _isAuthenticated = MutableStateFlow(false)
     val isAuthenticated: StateFlow<Boolean> = _isAuthenticated.asStateFlow()
     
@@ -36,11 +38,11 @@ class AuthViewModel(
             _error.value = null
             
             try {
-                val tokenResponse = AuthRepository.login(username, password)
+                val tokenResponse = authRepository.login(username, password)
                 _isAuthenticated.value = true
                 
                 // Load user profile
-                _userProfile.value = AuthRepository.getProfile()
+                _userProfile.value = authRepository.getProfile()
             } catch (e: Exception) {
                 _error.value = "Login failed: ${e.message}"
                 _isAuthenticated.value = false
@@ -57,7 +59,7 @@ class AuthViewModel(
         scope.launch {
             _isLoading.value = true
             try {
-                AuthRepository.logout()
+                authRepository.logout()
             } catch (e: Exception) {
                 // Ignore logout errors
             } finally {
@@ -74,7 +76,7 @@ class AuthViewModel(
     fun refreshToken() {
         scope.launch {
             try {
-                AuthRepository.refreshToken()
+                authRepository.refreshToken()
             } catch (e: Exception) {
                 _error.value = "Token refresh failed: ${e.message}"
                 _isAuthenticated.value = false
@@ -89,7 +91,7 @@ class AuthViewModel(
     fun checkAuthentication() {
         scope.launch {
             try {
-                val profile = AuthRepository.getProfile()
+                val profile = authRepository.getProfile()
                 _userProfile.value = profile
                 _isAuthenticated.value = true
             } catch (e: Exception) {

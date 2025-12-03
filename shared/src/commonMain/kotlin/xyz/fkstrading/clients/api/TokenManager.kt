@@ -69,6 +69,6 @@ object TokenManager {
     fun invalidateToken() {
         _isTokenValid.value = false
         stopAutoRefresh()
-        FksApiClient.clearAuthToken()
+        FksApiClient.instance.clearAuthToken()
     }
 }

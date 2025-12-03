@@ -6,13 +6,14 @@ import xyz.fkstrading.clients.data.models.*
 /**
  * Repository for portfolio management
  */
-object PortfolioRepository {
+class PortfolioRepository {
+    private val apiClient = FksApiClient.instance
     
     /**
      * Get portfolio value in BTC and USD
      */
     suspend fun getPortfolioValue(): PortfolioValueResponse {
-        return FksApiClient.get("/api/portfolio/value", FksApiClient.portfolioUrl)
+        return apiClient.get("/api/portfolio/value", apiClient.portfolioUrl)
     }
     
     /**
@@ -21,7 +22,7 @@ object PortfolioRepository {
      */
     suspend fun getAssetPrices(symbols: String? = null): List<AssetPriceResponse> {
         val params = symbols?.let { mapOf("symbols" to it) } ?: emptyMap()
-        return FksApiClient.get("/api/assets/prices", FksApiClient.portfolioUrl, params)
+        return apiClient.get("/api/assets/prices", apiClient.portfolioUrl, params)
     }
     
     /**
@@ -42,7 +43,7 @@ object PortfolioRepository {
      */
     suspend fun getCorrelations(symbols: String? = null): List<CorrelationResponse> {
         val params = symbols?.let { mapOf("symbols" to it) } ?: emptyMap()
-        return FksApiClient.get("/api/portfolio/correlations", FksApiClient.portfolioUrl, params)
+        return apiClient.get("/api/portfolio/correlations", apiClient.portfolioUrl, params)
     }
     
     /**
@@ -51,13 +52,13 @@ object PortfolioRepository {
      */
     suspend fun getRebalancingPlan(targetBtcAllocation: Double): RebalancingPlanResponse {
         val params = mapOf("target_btc_allocation" to targetBtcAllocation.toString())
-        return FksApiClient.get("/api/portfolio/rebalancing", FksApiClient.portfolioUrl, params)
+        return apiClient.get("/api/portfolio/rebalancing", apiClient.portfolioUrl, params)
     }
     
     /**
      * Check portfolio service health
      */
     suspend fun getHealth(): HealthResponse {
-        return FksApiClient.get("/health", FksApiClient.portfolioUrl)
+        return apiClient.get("/health", apiClient.portfolioUrl)
     }
 }

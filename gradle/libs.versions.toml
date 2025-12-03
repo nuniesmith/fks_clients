@@ -1,12 +1,11 @@
 [versions]
 kotlin = "2.0.20"
 compose = "1.8.0"
-compose-compiler = "1.5.15"
 ktor = "3.0.0"
 serialization = "1.7.3"
 coroutines = "1.9.0"
-koin = "3.6.0"
-voyager = "1.1.0"
+koin = "4.0.0"
+voyager = "1.0.0"
 android-gradle = "8.2.0"
 android-min-sdk = "24"
 android-compile-sdk = "34"
@@ -53,6 +52,7 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "android-gradle" }

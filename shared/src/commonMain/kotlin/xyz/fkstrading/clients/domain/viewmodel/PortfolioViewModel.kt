@@ -16,6 +16,9 @@ import xyz.fkstrading.clients.data.repository.DataRepository
 class PortfolioViewModel(
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) {
+    private val portfolioRepository = PortfolioRepository()
+    private val dataRepository = DataRepository()
+    
     private val _portfolioValue = MutableStateFlow<PortfolioValueResponse?>(null)
     val portfolioValue: StateFlow<PortfolioValueResponse?> = _portfolioValue.asStateFlow()
     
@@ -43,10 +46,10 @@ class PortfolioViewModel(
             _error.value = null
             
             try {
-                _portfolioValue.value = PortfolioRepository.getPortfolioValue()
-                _assetPrices.value = PortfolioRepository.getAssetPrices()
-                _correlations.value = PortfolioRepository.getCorrelations()
-                _btcPrice.value = DataRepository.getBtcPrice()
+                _portfolioValue.value = portfolioRepository.getPortfolioValue()
+                _assetPrices.value = portfolioRepository.getAssetPrices()
+                _correlations.value = portfolioRepository.getCorrelations()
+                _btcPrice.value = dataRepository.getBtcPrice()
             } catch (e: Exception) {
                 _error.value = "Failed to load portfolio: ${e.message}"
             } finally {
@@ -68,7 +71,7 @@ class PortfolioViewModel(
     fun getRebalancingPlan(targetBtcAllocation: Double, onResult: (RebalancingPlanResponse?) -> Unit) {
         scope.launch {
             try {
-                val plan = PortfolioRepository.getRebalancingPlan(targetBtcAllocation)
+                val plan = portfolioRepository.getRebalancingPlan(targetBtcAllocation)
                 onResult(plan)
             } catch (e: Exception) {
                 _error.value = "Failed to get rebalancing plan: ${e.message}"

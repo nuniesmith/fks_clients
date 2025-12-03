@@ -1,17 +1,18 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.compose.multiplatform)
+    id("com.android.application")
+    kotlin("android")
+    kotlin("plugin.compose")
+    id("org.jetbrains.compose")
 }
 
 android {
     namespace = "xyz.fkstrading.clients"
-    compileSdk = libs.versions.android.compile.sdk.get().toInt()
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "xyz.fkstrading.clients"
-        minSdk = libs.versions.android.min.sdk.get().toInt()
-        targetSdk = libs.versions.android.target.sdk.get().toInt()
+        minSdk = 24
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
 
@@ -54,12 +55,11 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.8.2")
     
     // AndroidX
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.activity.compose)
+    implementation("androidx.core:core-ktx:1.12.0")
     
     // Koin
-    implementation(libs.koin.android)
-    implementation(libs.koin.compose)
+    implementation("io.insert-koin:koin-android:3.6.0")
+    implementation("io.insert-koin:koin-androidx-compose:3.6.0")
     
     // Testing
     testImplementation("junit:junit:4.13.2")
