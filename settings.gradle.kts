@@ -8,7 +8,8 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    // Allow project repositories - needed for Kotlin/JS Node.js distribution from nodejs.org
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         google()
         mavenCentral()
@@ -20,4 +21,5 @@ rootProject.name = "fks-clients"
 include(":shared")
 include(":android")
 include(":desktop")
+include(":web")
 // iOS is built via Xcode using the shared framework

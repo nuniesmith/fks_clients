@@ -1,0 +1,86 @@
+{
+  "api_urls": {
+    "api_service": "http://localhost:8001",
+    "data_service": "http://localhost:8003",
+    "portfolio_service": "http://localhost:8012",
+    "auth_service": "http://localhost:8009"
+  },
+  "ticker": {
+    "symbols": [
+      "EURUSD",
+      "GBPUSD",
+      "USDJPY",
+      "USDCAD",
+      "AUDUSD",
+      "BTCUSDT",
+      "ETHUSDT",
+      "SPX",
+      "NDX",
+      "GOLD",
+      "OIL"
+    ],
+    "refresh_interval_seconds": 8
+  },
+  "world_clocks": {
+    "cities": [
+      {
+        "name": "Sydney",
+        "timezone": "Australia/Sydney",
+        "market_open": 10,
+        "market_close": 17
+      },
+      {
+        "name": "Tokyo",
+        "timezone": "Asia/Tokyo",
+        "market_open": 9,
+        "market_close": 15
+      },
+      {
+        "name": "Hong Kong",
+        "timezone": "Asia/Hong_Kong",
+        "market_open": 9.5,
+        "market_close": 16
+      },
+      {
+        "name": "London",
+        "timezone": "Europe/London",
+        "market_open": 8,
+        "market_close": 16.5
+      },
+      {
+        "name": "Frankfurt",
+        "timezone": "Europe/Berlin",
+        "market_open": 9,
+        "market_close": 17.5
+      },
+      {
+        "name": "New York",
+        "timezone": "America/New_York",
+        "market_open": 9.5,
+        "market_close": 16
+      }
+    ],
+    "refresh_interval_seconds": 1
+  },
+  "metrics": {
+    "refresh_interval_seconds": 5,
+    "enabled_metrics": [
+      "pnl",
+      "exposure",
+      "risk",
+      "signals",
+      "cache_hit_rate"
+    ]
+  },
+  "display": {
+    "theme": "dark",
+    "clock_font_size_vw": 96,
+    "ticker_font_size_vw": 24,
+    "metrics_panel_width_px": 300
+  },
+  "kiosk_mode": {
+    "full_screen": true,
+    "auto_refresh_page_hours": 0,
+    "hide_cursor": true
+  }
+}

@@ -214,6 +214,6 @@ class FksApiClient {
     }
     
     companion object {
-        val instance by lazy { FksApiClient() }
+        val instance: FksApiClient = FksApiClient()
     }
 }

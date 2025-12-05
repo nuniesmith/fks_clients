@@ -7,3 +7,12 @@ plugins {
     id("com.android.application") version "8.2.0" apply false
     id("com.android.library") version "8.2.0" apply false
 }
+
+// Configure Node.js to use system installation (prevents repository conflicts)
+allprojects {
+    plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin> {
+        extensions.getByType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension>().apply {
+            download = false
+        }
+    }
+}

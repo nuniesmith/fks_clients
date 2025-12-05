@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FKS Trading Wall - Kiosk Mode</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow: hidden;
+            background: #000;
+        }
+        #root {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        /* Prevent text selection */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <!-- Configure API URLs via script tag -->
+    <script>
+        // Default to localhost for local development
+        // Override these in production deployment
+        window.FKS_API_URL = window.FKS_API_URL || 'http://localhost:8001';
+        window.FKS_AUTH_URL = window.FKS_AUTH_URL || 'http://localhost:8009';
+        window.FKS_DATA_URL = window.FKS_DATA_URL || 'http://localhost:8003';
+        window.FKS_PORTFOLIO_URL = window.FKS_PORTFOLIO_URL || 'http://localhost:8012';
+        
+        // Auto-refresh every hour (optional - can be disabled)
+        // setTimeout(() => location.reload(), 3600000);
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="fks-web-kmp-kiosk.js"></script>
+</body>
+</html>

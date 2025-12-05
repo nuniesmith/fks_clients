@@ -37,6 +37,23 @@ kotlin {
         }
     }
     
+    // Web target (JS)
+    js(IR) {
+        browser {
+            commonWebpackConfig {
+                cssSupport {
+                    enabled.set(true)
+                }
+            }
+            testTask {
+                useKarma {
+                    useChromeHeadless()
+                }
+            }
+        }
+        binaries.executable()
+    }
+    
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -100,6 +117,14 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
                 implementation(libs.ktor.client.darwin)
+            }
+        }
+        
+        val jsMain by getting {
+            dependencies {
+                implementation(libs.ktor.client.js)
+                // Compose for Web - the ui/foundation/material3 from commonMain work on web too
+                // Additional web-specific dependencies if needed
             }
         }
     }

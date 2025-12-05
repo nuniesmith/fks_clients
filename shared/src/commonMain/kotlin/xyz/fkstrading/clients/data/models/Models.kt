@@ -77,7 +77,7 @@ data class SignalResponse(
     val confidence: Double,
     val timestamp: String,
     val is_valid: Boolean,
-    val metadata: Map<String, String>? = null
+    val metadata: Map<String, String> = emptyMap()
 )
 
 @Serializable
@@ -160,4 +160,66 @@ data class UserProgress(
     val streak: Int = 0,
     val hardware_wallet_progress: Double = 0.0,
     val completed_tasks: List<String> = emptyList()
+)
+
+// ==================== Trading Wall ====================
+
+@Serializable
+data class TimeframeMetricsResponse(
+    val timestamp: String? = null,
+    val signal_generation: SignalGenerationMetrics? = null,
+    val cache: CacheMetrics? = null,
+    val processing: ProcessingMetrics? = null,
+    val confluence: ConfluenceMetrics? = null
+)
+
+@Serializable
+data class SignalGenerationMetrics(
+    val total: Int = 0,
+    val by_timeframe_strategy: Map<String, Int> = emptyMap(),
+    val avg_times: Map<String, Double> = emptyMap()
+)
+
+@Serializable
+data class CacheMetrics(
+    val hits: Map<String, Int> = emptyMap(),
+    val misses: Map<String, Int> = emptyMap(),
+    val total_operations: Map<String, Int> = emptyMap(),
+    val hit_rates: Map<String, Double> = emptyMap()
+)
+
+@Serializable
+data class ProcessingMetrics(
+    val parallel_count: Int = 0,
+    val async_count: Int = 0
+)
+
+@Serializable
+data class ConfluenceMetrics(
+    val detections: Int = 0
+)
+
+@Serializable
+data class PortfolioMetricsResponse(
+    val pnl: Double? = null,
+    val exposure: Double? = null,
+    val risk: Double? = null,
+    val timestamp: String? = null
+)
+
+data class WorldClock(
+    val city: String,
+    val timezone: String,
+    val time: String,
+    val isOpen: Boolean,
+    val isPreMarket: Boolean,
+    val isOverlap: Boolean
+)
+
+data class TickerPrice(
+    val symbol: String,
+    val price: Double,
+    val change: Double? = null,
+    val changePercent: Double? = null,
+    val timestamp: Long = System.currentTimeMillis()
 )
